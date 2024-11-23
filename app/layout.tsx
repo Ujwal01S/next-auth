@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import SessionWrapper from "./components/sessionWrapper/sessionWrapper";
+import AppBar from "./components/appBar";
+
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,12 +28,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <SessionWrapper>
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
+        <AppBar />
         {children}
       </body>
     </html>
+     </SessionWrapper>
   );
 }

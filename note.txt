@@ -1,0 +1,7 @@
+
+
+
+How to Protect our important page from unauthorized user?
+step 1 :- Create a JWT Access Token in Login API
+step 2 :- Save the access token inside the Next-Auth session
+step 3 :- Require the client to have access token in the header of its request
