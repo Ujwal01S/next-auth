@@ -13,6 +13,7 @@ const handler = NextAuth({
           // You can pass any HTML attribute to the <input> tag through the object.
           credentials: {
             username: { label: "Username", type: "text", placeholder: "jsmith" },
+            // locatoin:{label:"Place", type:"text", placeholder:"Bhaktapur"},
             password: { label: "Password", type: "password" }
           },
           async authorize(credentials, req) {
@@ -42,13 +43,24 @@ const handler = NextAuth({
           }
         })
       ],
+      
+      pages:{
+        signIn:"/auth/signIn",
+      },
+       
       //step2 part 2 add callback to contain token finally after this section we can get token and id that we didn't get in part1 
       callbacks:{
-        async jwt({token, user}){
+        async jwt({token, user, trigger, session}){
+          // console.log(token,'fromcallback');
+          // token.name = "NameFromToken";
+          if(trigger === 'update'){
+            return {...token, ...session.user}
+          }
           return ({...token,...user})
-        },
+        }, 
         async session({session, token}){
           session.user = token as any;
+          // console.log(session,'SessionFromCallback')
           return session
         }
       },
